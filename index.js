@@ -16,22 +16,12 @@ app.use(helmet());
 app.use(cors());
 app.use(compression());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-app.use(express.static('uploads'));
-app.use(express.static('assets'));
 app.options('*', cors());
 
 // Swagger setup
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const serverless = require('serverless-http');
 
-// Example API Route
-app.get('/hello', (req, res) => {
-  res.json({ message: 'Hello from Vercel!' });
-});
-// Swagger options
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -45,8 +35,8 @@ const swaggerOptions = {
       },
     },
     servers: [
-      { url: 'https://asset-registry-qo7f69a59-lindanys-projects.vercel.app/api/' },
       { url: 'http://localhost:8080' },
+      { url: 'https://asset-registry-qo7f69a59-lindanys-projects.vercel.app/api/' },
     ],
   },
   apis: ['*.js'],
@@ -1745,9 +1735,6 @@ app.delete('/api/Locations/:id', (req, res) => {
 
 //============================================= START SERVER =========================================
 
-// Export as serverless function
-module.exports.handler = serverless(app);
-// Start the server
 app.listen(PORT, () => {
     console.log(`🔥 Server running at http://localhost:${PORT}`);
   });
