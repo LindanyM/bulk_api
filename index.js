@@ -36,7 +36,7 @@ const swaggerOptions = {
     },
     servers: [
       { url: 'http://localhost:8080' },
-      { url: 'https://asset-registry-qo7f69a59-lindanys-projects.vercel.app/api/' },
+      { url: 'https://bbm-apis.vercel.app/api/' },
     ],
   },
   apis: ['*.js'],
