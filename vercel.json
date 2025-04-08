@@ -3,16 +3,15 @@
     "builds": [
         {
             "src": "./index.js",
-            "use": "@vercel/node",
-            "env": {
-                "NODE_VERSION": "18"
-              }
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
             "dest": "/"
-        }
+        },
+        { "src": "/api-docs", "dest": "/api/index.js" },
+        { "src": "/.*", "dest": "/api/index.js" }
     ]      
   }
