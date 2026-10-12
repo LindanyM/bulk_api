@@ -36,14 +36,17 @@ const swaggerOptions = {
     },
     servers: [
       { url: 'http://localhost:8080' },
-      { url: 'https://bbm-apis.vercel.app/api/' },
+      { url: 'https://bbm-apis.vercel.app' },
     ],
   },
-  apis: ['*.js'],
+  apis: [__filename],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// Vercel serves swagger-ui.css as HTML (file not bundled), so load the stylesheet from CDN
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
+  customCssUrl: 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.20.7/swagger-ui.css',
+}));
 
 /**
  * @swagger
@@ -1735,7 +1738,12 @@ app.delete('/api/Locations/:id', (req, res) => {
 
 //============================================= START SERVER =========================================
 
-app.listen(PORT, () => {
-    console.log(`🔥 Server running at http://localhost:${PORT}`);
-  });
+// Vercel imports the app as a serverless handler; only listen when run directly
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`🔥 Server running at http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
 
