@@ -35,8 +35,8 @@ const swaggerOptions = {
       },
     },
     servers: [
-      { url: 'http://localhost:8080' },
-      { url: 'https://bbm-apis.vercel.app' },
+      // Relative URL: requests go to whichever host serves /docs (localhost or Vercel)
+      { url: '/', description: 'Current host' },
     ],
   },
   apis: [__filename],
